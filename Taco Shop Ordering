@@ -1,57 +1,28 @@
 #include <iostream>
-#include <string>
 #include <iomanip>
+//nclude "Tipodetacos.h"
 
 using namespace std;
 
-struct tipodetaco
-{
-    //string barbacoa;
-    //string lengua;
-    //string al_pastor;
-    //string asada;
-    //string tripas;
-    const double preciodetaco = 2.00;
-    double ordendetacos;
-    double preciodeorden;
-};
-
-struct tipodebebida
-{ 
-    string cerveza;
-  //  string refresco;
-  //  string agua;
-   // string aguadejamaica;
-   // string aguadehorchata;
-    //string aguademelon;
-    double preciodecerveza = 3.00;
-    //const double preciodeaguarefresco = 2.00 ;
-    //const double preciodeagua = 1.00;
-    //const double preciodeaguafresca = 2.00 ;
-    const double ordendebebidas;
-};
-
-//struct relleno
-//{
-   // string salsaroja;
-   // string salsaverde;
-    //string cilantro;
-    //string cebolla;
-//};
-
 int main()
 {
-    tipodetaco orden;
-    tipodebebida bebida;
-    cout<< "Bienvenidos A Taqueria El Pariente " << endl;
-    cout << "Cuantos Tacos Te Gustaria Ordenar??" << endl;
-    cout << "El Precio de Cada Tacos Es $2.00" << endl;
-    cin >> orden.ordendetacos;
-    orden.preciodeorden = orden.ordendetacos * orden.preciodetaco;
-    cout << "El Total De Tu Orden De Tacos Son $" << orden.preciodeorden << endl;
-    
-    cout << "Que Te Gustaria Tomar? " << endl;
-    (cin)
+  const int numtipodetacos = 5;
+  Tipodetacos taco[numtipodetacos] = {
+    Tipodetacos ("Asada", 2.00),
+    Tipodetacos ("Al Pastor", 2.00),
+    Tipodetacos ("Barbacoa", 2.50),
+    Tipodetacos ("Lengua", 2.50),
+    Tipodetacos ("Tripas", 2.50)
+  };
 
-    return 0;
+  cout << setw (12) << "Tipo De Taco" << setw (12) << "Precio\n";
+  cout << "__________________________________" << endl;
+
+  for (int i = 0; i < numtipodetacos; i++)
+    {
+      cout << setw (12) << taco[i].getDescription ();
+      cout << setw (12) << taco[i].getCost();
+      <<endl;
+    }
+  return 0;
 }
