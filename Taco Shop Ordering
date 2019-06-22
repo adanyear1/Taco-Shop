@@ -8,9 +8,8 @@ using namespace std;
 //Global Variable For Amount of Taco Type
 const int numtipodetacos = 5;
 //Global Variable For Taco Pricing
-//const int preciodetaco = 2;
-//const double ordendetacos;
-//const double preciodeorden;
+const int preciodeorden = 1;
+const int preciodetaco = 2;
 //Global Variable For Taco Menu Number
 int tacomenu_number;
 //Global Variable For Amount of Tacos ordered
@@ -25,15 +24,15 @@ struct tipodetaco
            taco5;
 };
 
-//struct preciototal
-//{
-    //double taco[preciodetaco];
-//};
+struct preciototal
+{
+    double total[preciodeorden];
+};
 
 struct tacodata
 {
     tipodetaco nonnumeric;
-    //preciototal numeric;
+    preciototal numeric;
 };
 //FUNCTION PROTOTYPES
 //function call that reads data from input file
@@ -42,6 +41,8 @@ void displaymenu(ifstream &, struct tacodata meal[], int);
 void Order(struct tacodata meal[], int);
 //function call that prints receipt for customer
 void Receipt(ofstream &, struct tacodata meal[], int);
+//function call that calculates taco cost
+void price(struct tacodata meal[], int);
 
 int main()
 {
@@ -68,6 +69,7 @@ int main()
     {
         displaymenu(fin, meal, food);
         Order(meal, food);
+        price(meal, food);
         Receipt(fout, meal, food);
     }
     return 0;
@@ -96,7 +98,7 @@ void displaymenu(ifstream &fin, struct tacodata meal[], int food)
 }
 void Order(struct tacodata meal[], int food)
 {
-    char correct;
+    char incorrect;
     do
     {
         cout << setw(42) << "Que Tipo De Tacos Te Gustaria Ordenar?" << endl;
@@ -105,22 +107,71 @@ void Order(struct tacodata meal[], int food)
         cin >> t;
         if (tacomenu_number == 1)
         {
-            cout << "Pedio " << t << " de " << "Al Pastor" << endl;
+            cout << "Pedio " << t << " de " << meal[food].nonnumeric.taco1 << endl;
+        }
+        else if (tacomenu_number == 2)
+        {
+            cout << "Pedio " << t << " de " << meal[food].nonnumeric.taco2 << endl;
+        }
+        else if (tacomenu_number == 3)
+        {
+            cout << "Pedio " << t << " de " << meal[food].nonnumeric.taco3 << endl;
+        }
+        else if (tacomenu_number == 4)
+        {
+            cout << "Pedio " << t << " de " << meal[food].nonnumeric.taco4 << endl;
+        }
+        else if (tacomenu_number == 5)
+        {
+            cout << "Pedio " << t << " de " << meal[food].nonnumeric.taco5 << endl;
         }
         else
         {
             cout << "Pedio Numero Incorrecto" << endl;
         }
         cout << "Esta Correcta Su Orden (y/n)" << endl;
-        cin >> correct;
-    }while(correct == 'n' || correct == 'N');
+        cin >> incorrect;
+    }while(incorrect == 'n' || incorrect == 'N');
 
+}
+void price(struct tacodata meal[], int food)
+{
+    meal[food].numeric.total[1] = t*preciodetaco;
+    cout << meal[food].numeric.total[1] << endl;
 }
 void Receipt(ofstream &fout, struct tacodata meal[], int food)
 {
     fout << setw(45) << "Taqueria El Pariente " << endl
          << setw(38) << "1915 Rundberg LN," << endl
          << setw(38) << "Austin, TX, 78626" << endl
-         << setw(38) << "(512) 968-1111" << endl;
+         << setw(38) << "(512) 968-1111" << endl
+         << "______________________________________________________________________________________________________________________" << endl;
+
+    fout << setw(28) << "Item" << setw(15) << "Quantity" << endl;
+    if (tacomenu_number == 1)
+        {
+            fout << setw(30) << meal[food].nonnumeric.taco1 << setw(10) << t << endl;
+        }
+        else if (tacomenu_number == 2)
+        {
+            fout << setw(30) << meal[food].nonnumeric.taco2 << setw(13) << t << endl;
+        }
+        else if (tacomenu_number == 3)
+        {
+            fout << setw(30) << meal[food].nonnumeric.taco3 << setw(13) << t << endl;
+        }
+        else if (tacomenu_number == 4)
+        {
+            fout << setw(30) << meal[food].nonnumeric.taco4 << setw(13) << t << endl;
+        }
+        else if (tacomenu_number == 5)
+        {
+            fout << setw(30) << meal[food].nonnumeric.taco5 << setw(13) << t << endl;
+        }
+        else
+        {
+            fout << "Pedido No Fue Realizado" << endl;
+        }
+        fout << setw(30) << "Total" << setw(6) << "$"<< meal[food].numeric.total[1] << endl;
 
 }
